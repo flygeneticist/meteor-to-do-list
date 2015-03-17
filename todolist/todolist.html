@@ -6,13 +6,18 @@
   <div class="container">
     <header>
       <h1>To-Do List</h1>
+      <form class="new-list">
+        <input type="text" name="title" placeholder="Type to add new list title" />
+      </form>
     </header>
     {{#each lists}}
       <div>
         {{> list}}
         <ul>
           {{#each tasks}}
-            {{> task}}
+            {{#if list.id == task.list}}
+              {{> task}}
+            {{/if}}
           {{/each}}
         </ul>
       </div>
@@ -20,10 +25,11 @@
   </div>
 </body>
 
-<template name="task">
-  <li>{{title}} - {{dueDate}}</li>
-</template>
-
 <template name="list">
   <h3>{{title}}</h3>
+  <button class="deleteListBtn" id={{id}}>Delete</button>
+</template>
+
+<template name="task">
+  <li>{{title}} - {{dueDate}}</li>
 </template>

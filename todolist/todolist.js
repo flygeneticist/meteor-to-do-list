@@ -14,6 +14,9 @@ if (Meteor.isClient) {
   });
 
   Template.body.events({
+    /*
+      * LIST FUNCTIONS
+    */
     "submit .new-list": function (event) {
       // This function is called when the new task form is submitted
       var title = event.target.title.value;
@@ -29,8 +32,35 @@ if (Meteor.isClient) {
       return false;
     },
 
-    "click .deleteListBtn": function () {
+    "click .delete-list": function () {
       Lists.remove(this._id);
+    },
+
+    /*
+      * ITEM FUNCTIONS
+    */
+    "submit .add-item": function (event) {
+      // This function is called when the new task form is submitted
+
+      var title = event.target.title.value;
+      var dueDate = event.target.dueDate.value;
+
+      Items.insert({
+        title: title,
+        dueDate: dueDate,
+        complete: false,
+        createdAt: new Date() // current time
+      });
+
+      // Clear form
+      event.target.title.value = "";
+      event.target.dueDate.value = "";
+      // Prevent default form submit
+      return false;
+    },
+
+    "click .delete-item": function () {
+      Items.remove(this._id);
     }
   });
 }

@@ -15,7 +15,7 @@
         {{> list}}
         <ul>
           {{#each tasks}}
-            {{#if list.id == task.list}}
+            {{#if list.id is task.list}}
               {{> task}}
             {{/if}}
           {{/each}}
@@ -27,9 +27,14 @@
 
 <template name="list">
   <h3>{{title}}</h3>
-  <button class="deleteListBtn" id={{id}}>Delete</button>
+  <form class="new-item">
+    <input type="text" name="title" placeholder="Type to add new item title" required/>
+    <input type="date" name="dueDate" required/>
+    <button class="add-item" type="submit">Add Item</button>
+  </form><br>
+  <button class="delete-list">Delete List</button>
 </template>
 
 <template name="task">
-  <li>{{title}} - {{dueDate}}</li>
+  <li>{{title}} - {{dueDate}} - {{#if task.complete }}completed!{{/if}}</li>
 </template>
